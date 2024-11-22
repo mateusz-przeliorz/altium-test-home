@@ -7,8 +7,8 @@ namespace Sorting.Benchmarks;
 [MemoryDiagnoser]
 public class SortEngineBenchmark
 { 
-    private const string Input = "benchmark-unsorted-100-mb.txt";
-    private const string Output = "benchmark-sorted-100-mb.txt";
+    private const string Input = "benchmark-10-mb.txt";
+    private const string Output = "benchmark-sorted-10-mb.txt";
     private const int DefaultBufferSize = 1024;
     private const int DefaultBatchSize = 15;
     

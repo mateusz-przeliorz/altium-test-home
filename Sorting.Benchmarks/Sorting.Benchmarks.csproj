@@ -13,7 +13,7 @@
         <ProjectReference Include="..\Sorting.Core\Sorting.Core.csproj" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="benchmark-unsorted-100-mb.txt">
+        <Content Include="benchmark-10-mb.txt">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
