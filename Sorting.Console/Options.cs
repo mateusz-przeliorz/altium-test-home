@@ -1,0 +1,39 @@
+using CommandLine;
+
+namespace Sorting.Console;
+
+[Verb("generate", HelpText = "Generate file")]
+public class GenerateOptions
+{
+    private const string DefaultFilePath = "unsorted.txt";
+    private const int DefaultLineSize = 1000;
+    private const long DefaultSizeInBytes = 10000000;
+    
+    [Option('b', "bytes", Required = false, Default = DefaultSizeInBytes, HelpText = "Size in bytes.")]
+    public long Bytes { get; set; }
+    
+    [Option('o', "output-file-path", Required = false, Default = DefaultFilePath, HelpText = "Expected output file path.")]
+    public string FilePath { get; set; } = null!;
+    
+    [Option('l', "line-size", Required = false, Default = DefaultLineSize, HelpText = "Length of the string in lines")]
+    public int LineSize { get; set; }
+    
+    [Option('m', "max-number", Required = false, Default = Int32.MaxValue, HelpText = "Max number used in lines")]
+    public int MaxNumber { get; set; }
+}
+
+[Verb("sort", HelpText = "Sort file")]
+public class SortOptions
+{
+    [Option('i', "input-file-path", Required = true, HelpText = "Unsorted input file path.")]
+    public string FilePath { get; set; } = null!;
+    
+    [Option('o', "output", Required = false, Default = "sorted.txt", HelpText = "Sorted output file path.")]
+    public string OutputFilePath { get; set; } = null!;
+    
+    [Option('b', "batches", Required = false, Default = 15, HelpText = "Number of batches.")]
+    public int NumberOfBatches { get; set; }
+    
+    [Option('s', "buffer-size", Required = false, Default = 1024, HelpText = "Buffer size.")]
+    public int BufferSize { get; set; }
+}

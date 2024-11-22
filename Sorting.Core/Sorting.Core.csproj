@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Sorting.Console"/>
+        <InternalsVisibleTo Include="Sorting.Benchmarks"/>
+        <InternalsVisibleTo Include="Sorting.Core.Tests"/>
+    </ItemGroup>
+</Project>
