@@ -43,7 +43,7 @@ internal class SortEngine : ISortEngine
         stopwatch.Stop();
         
         Console.WriteLine("Elapsed Time: " + stopwatch.Elapsed.ToString(@"hh\:mm\:ss"));
-        Console.WriteLine($"Saved file in {input.OutputFilePath}.");
+        Console.WriteLine($"Saved file in {input.OutputFilePath}");
     }
     
     public void Run(SortEngineInput input)
@@ -62,6 +62,6 @@ internal class SortEngine : ISortEngine
         stopwatch.Stop();
         
         Console.WriteLine("Elapsed Time: " + stopwatch.Elapsed.ToString(@"hh\:mm\:ss"));
-        Console.WriteLine($"Saved file in {input.OutputFilePath}.");
+        Console.WriteLine($"Saved file in {input.OutputFilePath}");
     }
 }

@@ -17,7 +17,7 @@ await Parser.Default
     .ParseArguments<GenerateOptions, SortOptions>(args)
     .WithParsedAsync<GenerateOptions>(async g =>
     {
-        await fileGenerator.GenerateAsync(new FileGeneratorInput(g.FilePath, g.Bytes, g.MaxLineSize, g.MaxNumber));
+        await fileGenerator.GenerateAsync(new FileGeneratorInput(g.OutputFilePath, g.Bytes, g.MaxLineSize, g.MaxNumber));
     });
 
 // Due to huge amount of I/O operations async approach seems to be slower.

@@ -24,7 +24,7 @@ internal class FileGenerator : IFileGenerator
     {
         Console.WriteLine("Generating file...");
 
-        await using var fileStream = Writer.FileStream(input.FilePath);
+        await using var fileStream = Writer.FileStream(input.OutputFilePath);
         await using var writer = new StreamWriter(fileStream);
         
         long totalBytes = 0;
@@ -49,5 +49,7 @@ internal class FileGenerator : IFileGenerator
             await writer.WriteAsync(linesBuffer.ToString());
             linesBuffer.Clear();
         }
+        
+        Console.WriteLine($"Saved file in {input.OutputFilePath}");
     }
 }

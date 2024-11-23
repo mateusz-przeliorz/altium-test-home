@@ -13,12 +13,12 @@ public class GenerateOptions
     public long Bytes { get; set; }
     
     [Option('o', "output-file-path", Required = false, Default = DefaultFilePath, HelpText = "Expected output file path.")]
-    public string FilePath { get; set; } = null!;
+    public string OutputFilePath { get; set; } = null!;
     
-    [Option('l', "line-size", Required = false, Default = DefaultLineSize, HelpText = "Max length of the string")]
+    [Option('l', "line-size", Required = false, Default = DefaultLineSize, HelpText = "Max length of the string.")]
     public int MaxLineSize { get; set; }
     
-    [Option('m', "max-number", Required = false, Default = Int32.MaxValue, HelpText = "Max number used in line")]
+    [Option('m', "max-number", Required = false, Default = Int32.MaxValue, HelpText = "Max number used in line.")]
     public int MaxNumber { get; set; }
 }
 
@@ -31,7 +31,7 @@ public class SortOptions
     [Option('o', "output", Required = false, Default = "sorted.txt", HelpText = "Sorted output file path.")]
     public string OutputFilePath { get; set; } = null!;
     
-    [Option('b', "batches", Required = false, Default = 15, HelpText = "Number of batches.")]
+    [Option('b', "batches", Required = false, Default = 10, HelpText = "Number of batches.")]
     public int NumberOfBatches { get; set; }
     
     [Option('s', "buffer-size", Required = false, Default = 1024, HelpText = "Buffer size.")]
