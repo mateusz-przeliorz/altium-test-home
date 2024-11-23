@@ -22,7 +22,9 @@ internal class RandomLineGenerator : ILineGenerator
         stringBuilder.Append(lineIndex);
         stringBuilder.Append(". ");
         
-        for (var i = 0; i < input.LineSize; i++)
+        var lineSize = _random.Next(1, input.LineSize);
+
+        for (var i = 0; i < lineSize; i++)
         {
             var character = Characters[_random.Next(Characters.Length)];
             stringBuilder.Append(character);

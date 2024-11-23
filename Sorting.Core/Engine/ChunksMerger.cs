@@ -41,13 +41,13 @@ internal class ChunksMerger : IChunksMerger
                 }
             }
         }
-
-        Directory.Delete(ChunksGenerator.ChunksDirectory, true);
         
         foreach (var reader in chunkReaders)
         {
             reader.Dispose();
         }
+
+        Directory.Delete(ChunksGenerator.ChunksDirectory, true);
     }
     
     public void Merge(ChunksMergerInput input, IComparer<string> comparer)
@@ -81,11 +81,11 @@ internal class ChunksMerger : IChunksMerger
             }
         }
 
-        Directory.Delete(ChunksGenerator.ChunksDirectory, true);
-        
         foreach (var reader in chunkReaders)
         {
             reader.Dispose();
         }
+        
+        Directory.Delete(ChunksGenerator.ChunksDirectory, true);
     }
 }

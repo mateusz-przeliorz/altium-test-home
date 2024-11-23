@@ -17,20 +17,20 @@ await Parser.Default
     .ParseArguments<GenerateOptions, SortOptions>(args)
     .WithParsedAsync<GenerateOptions>(async g =>
     {
-        await fileGenerator.GenerateAsync(new FileGeneratorInput(g.FilePath, g.Bytes, g.LineSize, g.MaxNumber));
+        await fileGenerator.GenerateAsync(new FileGeneratorInput(g.FilePath, g.Bytes, g.MaxLineSize, g.MaxNumber));
     });
 
-await Parser.Default
-    .ParseArguments<GenerateOptions, SortOptions>(args)
-    .WithParsedAsync<SortOptions>(async s =>
-    {
-        await sortEngine.RunAsync(new SortEngineInput(s.FilePath, s.OutputFilePath, s.NumberOfBatches, s.BufferSize));
-    });
-    
-    
-// Parser.Default
+// await Parser.Default
 //     .ParseArguments<GenerateOptions, SortOptions>(args)
-//     .WithParsed<SortOptions>(s =>
+//     .WithParsedAsync<SortOptions>(async s =>
 //     {
-//         sortEngine.Run(new SortEngineInput(s.FilePath, s.OutputFilePath, s.NumberOfBatches, s.BufferSize));
+//         await sortEngine.RunAsync(new SortEngineInput(s.FilePath, s.OutputFilePath, s.NumberOfBatches, s.BufferSize));
 //     });
+    
+    
+Parser.Default
+    .ParseArguments<GenerateOptions, SortOptions>(args)
+    .WithParsed<SortOptions>(s =>
+    {
+        sortEngine.Run(new SortEngineInput(s.FilePath, s.OutputFilePath, s.NumberOfBatches, s.BufferSize));
+    });
