@@ -13,6 +13,8 @@ internal class ChunksMerger : IChunksMerger
 {
     public async Task MergeAsync(ChunksMergerInput input, IComparer<string> comparer)
     {
+        Console.WriteLine($"Merging chunks for run {input.SortRunId}...");
+        
         var chunkReaders = input.Chunks
             .Select(chunk => new StreamReader(Reader.FileStream(chunk.FilePath)))
             .ToList();
@@ -47,11 +49,13 @@ internal class ChunksMerger : IChunksMerger
             reader.Dispose();
         }
 
-        Directory.Delete(ChunksGenerator.ChunksDirectory, true);
+        Directory.Delete(input.SortRunId, true);
     }
     
     public void Merge(ChunksMergerInput input, IComparer<string> comparer)
     {
+        Console.WriteLine($"Merging chunks for run {input.SortRunId}...");
+
         var chunkReaders = input.Chunks
             .Select(chunk => new StreamReader(Reader.FileStream(chunk.FilePath)))
             .ToList();
@@ -86,6 +90,6 @@ internal class ChunksMerger : IChunksMerger
             reader.Dispose();
         }
         
-        Directory.Delete(ChunksGenerator.ChunksDirectory, true);
+        Directory.Delete(input.SortRunId, true);
     }
 }

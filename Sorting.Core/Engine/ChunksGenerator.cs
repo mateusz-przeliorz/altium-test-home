@@ -12,13 +12,16 @@ public interface IChunksGenerator
 
 internal class ChunksGenerator : IChunksGenerator
 {
-    public const string ChunksDirectory = "chunks";
+    private const string ChunksDirectory = "chunks";
     
     public async Task<List<Chunk>> GenerateAsync(ChunksGeneratorInput input, IComparer<string> comparer)
     {
-        if (!Directory.Exists(ChunksDirectory))
+        Console.WriteLine($"Generating chunks for run {input.SortRunId}...");
+
+        var chunksPath = Path.Combine(input.SortRunId, ChunksDirectory);
+        if (!Directory.Exists(chunksPath))
         {
-            Directory.CreateDirectory(ChunksDirectory);
+            Directory.CreateDirectory(chunksPath);
         }
         
         var chunks = new List<Chunk>();
@@ -39,7 +42,7 @@ internal class ChunksGenerator : IChunksGenerator
                 
             if (totalBytes > batchSize)
             {
-                var chunk = await CreateChunkAsync(chunkLines, chunks.Count, comparer);
+                var chunk = await CreateChunkAsync(chunkLines, chunksPath, chunks.Count, comparer);
                 chunks.Add(chunk);
                 
                 chunkLines.Clear();
@@ -49,20 +52,21 @@ internal class ChunksGenerator : IChunksGenerator
 
         if (chunkLines.Count > 0)
         {
-            var chunk = await CreateChunkAsync(chunkLines, chunks.Count, comparer);
+            var chunk = await CreateChunkAsync(chunkLines, chunksPath, chunks.Count, comparer);
             chunks.Add(chunk);
         }
 
         return chunks;
     }
 
-    private async Task<Chunk> CreateChunkAsync(List<string> chunkLines, int chunkNumber, IComparer<string> comparer)
+    private async Task<Chunk> CreateChunkAsync(List<string> chunkLines, string chunksPath,
+        int chunkNumber, IComparer<string> comparer)
     {
         var sortedChunk = chunkLines
             .OrderBy(x => x, comparer)
             .ToList();
                 
-        var chunkFilePath = Path.Combine(ChunksDirectory, $"chunk_{chunkNumber}.txt");
+        var chunkFilePath = Path.Combine(chunksPath, $"chunk_{chunkNumber}.txt");
         await File.WriteAllLinesAsync(chunkFilePath, sortedChunk);
         
         return new Chunk(chunkFilePath);
@@ -70,9 +74,12 @@ internal class ChunksGenerator : IChunksGenerator
     
     public List<Chunk> Generate(ChunksGeneratorInput input, IComparer<string> comparer)
     {
-        if (!Directory.Exists(ChunksDirectory))
+        Console.WriteLine($"Generating chunks for run {input.SortRunId}...");
+
+        var chunksPath = Path.Combine(input.SortRunId, ChunksDirectory);
+        if (!Directory.Exists(chunksPath))
         {
-            Directory.CreateDirectory(ChunksDirectory);
+            Directory.CreateDirectory(chunksPath);
         }
         
         var chunks = new List<Chunk>();
@@ -93,7 +100,7 @@ internal class ChunksGenerator : IChunksGenerator
                 
             if (totalBytes > batchSize)
             {
-                var chunk = CreateChunk(chunkLines, chunks.Count, comparer);
+                var chunk = CreateChunk(chunkLines, chunksPath, chunks.Count, comparer);
                 chunks.Add(chunk);
                 
                 chunkLines.Clear();
@@ -103,22 +110,22 @@ internal class ChunksGenerator : IChunksGenerator
 
         if (chunkLines.Count > 0)
         {
-            var chunk = CreateChunk(chunkLines, chunks.Count, comparer);
+            var chunk = CreateChunk(chunkLines, chunksPath, chunks.Count, comparer);
             chunks.Add(chunk);
         }
 
         return chunks;
     }
 
-    private Chunk CreateChunk(List<string> chunkLines, int chunkNumber, IComparer<string> comparer)
+    private Chunk CreateChunk(List<string> chunkLines, string chunksPath, int chunkNumber, IComparer<string> comparer)
     {
         var sortedChunk = chunkLines
             .OrderBy(x => x, comparer)
             .ToList();
                 
-        var chunkFilePath = Path.Combine(ChunksDirectory, $"chunk_{chunkNumber}.txt");
+        var chunkFilePath = Path.Combine(chunksPath, $"chunk_{chunkNumber}.txt");
         File.WriteAllLines(chunkFilePath, sortedChunk);
-        
+        Console.WriteLine(chunkFilePath);
         return new Chunk(chunkFilePath);
     }
 }
