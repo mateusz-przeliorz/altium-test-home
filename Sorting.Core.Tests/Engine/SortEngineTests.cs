@@ -6,7 +6,7 @@ namespace Sorting.Core.Tests.Engine;
 [TestFixture]
 public class SortEngineTests
 {
-    private const string TestDataPath = "../../../TestData";
+    private const string TestDataPath = "TestData";
     private const string InputFilePath = $"{TestDataPath}/unsorted.txt";
     private const string OutputFilePath = $"{TestDataPath}/sorted.txt";
     

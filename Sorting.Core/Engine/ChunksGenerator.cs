@@ -125,7 +125,7 @@ internal class ChunksGenerator : IChunksGenerator
                 
         var chunkFilePath = Path.Combine(chunksPath, $"chunk_{chunkNumber}.txt");
         File.WriteAllLines(chunkFilePath, sortedChunk);
-        Console.WriteLine(chunkFilePath);
+        
         return new Chunk(chunkFilePath);
     }
 }

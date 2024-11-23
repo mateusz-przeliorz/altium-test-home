@@ -15,50 +15,98 @@ public class SortEngineBenchmark
     private readonly SortEngine _sortEngine = new(new ChunksGenerator(), new ChunksMerger(), new LineComparer());
 
     [Benchmark]
-    public async Task Run_NumberOfBatches_5()
+    public async Task RunAsync_NumberOfBatches_5()
     {
         await _sortEngine.RunAsync(new SortEngineInput(Input, Output, 5, DefaultBufferSize));
     }
     
     [Benchmark]
-    public async Task Run_NumberOfBatches_10()
+    public async Task RunAsync_NumberOfBatches_10()
     {
         await _sortEngine.RunAsync(new SortEngineInput(Input, Output, 10, DefaultBufferSize));
     }
     
     [Benchmark]
-    public async Task Run_NumberOfBatches_15()
+    public async Task RunAsync_NumberOfBatches_15()
     {
         await _sortEngine.RunAsync(new SortEngineInput(Input, Output, 15, DefaultBufferSize));
     }
     
     [Benchmark]
-    public async Task Run_NumberOfBatches_20()
+    public async Task RunAsync_NumberOfBatches_20()
     {
         await _sortEngine.RunAsync(new SortEngineInput(Input, Output, 20, DefaultBufferSize));
     }
     
     [Benchmark]
-    public async Task Run_BufferSize_1024()
+    public async Task RunAsync_BufferSize_1024()
     {
         await _sortEngine.RunAsync(new SortEngineInput(Input, Output, DefaultBatchSize, 1024));
     }
     
     [Benchmark]
-    public async Task Run_BufferSize_2048()
+    public async Task RunAsync_BufferSize_2048()
     {
         await _sortEngine.RunAsync(new SortEngineInput(Input, Output, DefaultBatchSize, 2048));
     }
         
     [Benchmark]
-    public async Task Run_BufferSize_4096()
+    public async Task RunAsync_BufferSize_4096()
     {
         await _sortEngine.RunAsync(new SortEngineInput(Input, Output, DefaultBatchSize, 4096));
     }
         
     [Benchmark]
-    public async Task Run_BufferSize_8192()
+    public async Task RunAsync_BufferSize_8192()
     {
         await _sortEngine.RunAsync(new SortEngineInput(Input, Output, DefaultBatchSize, 8192));
+    }
+    
+    [Benchmark]
+    public void Run_NumberOfBatches_5()
+    {
+        _sortEngine.Run(new SortEngineInput(Input, Output, 5, DefaultBufferSize));
+    }
+    
+    [Benchmark]
+    public void Run_NumberOfBatches_10()
+    {
+        _sortEngine.Run(new SortEngineInput(Input, Output, 10, DefaultBufferSize));
+    }
+    
+    [Benchmark]
+    public void Run_NumberOfBatches_15()
+    {
+        _sortEngine.Run(new SortEngineInput(Input, Output, 15, DefaultBufferSize));
+    }
+    
+    [Benchmark]
+    public void Run_NumberOfBatches_20()
+    {
+        _sortEngine.Run(new SortEngineInput(Input, Output, 20, DefaultBufferSize));
+    }
+    
+    [Benchmark]
+    public void Run_BufferSize_1024()
+    {
+        _sortEngine.Run(new SortEngineInput(Input, Output, DefaultBatchSize, 1024));
+    }
+    
+    [Benchmark]
+    public void Run_BufferSize_2048()
+    {
+        _sortEngine.Run(new SortEngineInput(Input, Output, DefaultBatchSize, 2048));
+    }
+        
+    [Benchmark]
+    public void Run_BufferSize_4096()
+    {
+        _sortEngine.Run(new SortEngineInput(Input, Output, DefaultBatchSize, 4096));
+    }
+        
+    [Benchmark]
+    public void Run_BufferSize_8192()
+    {
+        _sortEngine.Run(new SortEngineInput(Input, Output, DefaultBatchSize, 8192));
     }
 }
