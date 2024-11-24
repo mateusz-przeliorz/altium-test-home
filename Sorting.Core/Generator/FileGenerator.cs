@@ -32,7 +32,7 @@ internal class FileGenerator : IFileGenerator
 
         while (totalBytes < input.Bytes)
         {
-            var line = _lineGenerator.Generate(new LineGeneratorInput(input.MaxLineSize, input.MaxLineIndexNumber));
+            var line = _lineGenerator.Generate();
             linesBuffer.AppendLine(line);
 
             totalBytes += Encoding.UTF8.GetByteCount(line + Environment.NewLine);

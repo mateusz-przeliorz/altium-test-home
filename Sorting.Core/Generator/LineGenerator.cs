@@ -5,26 +5,25 @@ namespace Sorting.Core.Generator;
 
 public interface ILineGenerator
 {
-    public string Generate(LineGeneratorInput input);
+    public string Generate();
 }
 
 internal class RandomLineGenerator : ILineGenerator
 {
     private const string Characters = "abcdefghijklmnoprstuwxyz";
+    private const int LineSize = 2000;
 
     private readonly Random _random = new();
     
-    public string Generate(LineGeneratorInput input)
+    public string Generate()
     {
         var stringBuilder = new StringBuilder();
 
-        var lineIndex = _random.Next(1, input.MaxLineIndexNumber);
+        var lineIndex = _random.Next(1, Int32.MaxValue);
         stringBuilder.Append(lineIndex);
         stringBuilder.Append(". ");
         
-        var lineSize = _random.Next(1, input.LineSize);
-
-        for (var i = 0; i < lineSize; i++)
+        for (var i = 0; i < LineSize; i++)
         {
             var character = Characters[_random.Next(Characters.Length)];
             stringBuilder.Append(character);
