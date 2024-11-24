@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Sorting.Core.Engine.Models;
 using Sorting.Core.IO;
 
@@ -56,8 +55,6 @@ internal class ChunksMerger : IChunksMerger
     public void Merge(ChunksMergerInput input, IComparer<string> comparer)
     {
         Console.WriteLine($"Merging chunks for run {input.SortRunId}...");
-        var stopwatch = new Stopwatch();
-        stopwatch.Start();
 
         var chunkReaders = input.Chunks
             .Select(chunk => new StreamReader(Reader.FileStream(chunk.FilePath)))
@@ -88,10 +85,6 @@ internal class ChunksMerger : IChunksMerger
             }
         }
 
-        stopwatch.Stop();
-        
-        Console.WriteLine("Merging chunks elapsed Time: " + stopwatch.Elapsed.ToString(@"hh\:mm\:ss"));
-        
         foreach (var reader in chunkReaders)
         {
             reader.Dispose();

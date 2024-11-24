@@ -34,6 +34,6 @@ public class SortOptions
     [Option('b', "batches", Required = false, Default = 10, HelpText = "Number of batches.")]
     public int NumberOfBatches { get; set; }
     
-    [Option('s', "buffer-size", Required = false, Default = 1024, HelpText = "Buffer size.")]
+    [Option('s', "buffer-size", Required = false, Default = 2048, HelpText = "Buffer size.")]
     public int BufferSize { get; set; }
 }

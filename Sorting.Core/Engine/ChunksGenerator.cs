@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Text;
 using Sorting.Core.Engine.Models;
 using Sorting.Core.IO;
@@ -92,8 +91,6 @@ internal class ChunksGenerator : IChunksGenerator
 
         using var fileStream = Reader.FileStream(input.FilePath);
         using var reader = new StreamReader(fileStream, bufferSize: input.BufferSize);
-        var stopwatch = new Stopwatch();
-        stopwatch.Start();
 
         while (reader.ReadLine() is { } line)
         {
@@ -104,8 +101,6 @@ internal class ChunksGenerator : IChunksGenerator
             {
                 var chunk = CreateChunk(chunkLines, chunksPath, chunks.Count, comparer);
                 chunks.Add(chunk);
-                Console.WriteLine($"Generating chunk {chunks.Count} elapsed Time: " + stopwatch.Elapsed.ToString(@"hh\:mm\:ss"));
-
                 chunkLines.Clear();
                 totalBytes = 0;
             }
@@ -115,25 +110,16 @@ internal class ChunksGenerator : IChunksGenerator
         {
             var chunk = CreateChunk(chunkLines, chunksPath, chunks.Count, comparer);
             chunks.Add(chunk);
-            Console.WriteLine($"Generating chunk {chunks.Count} elapsed Time: " + stopwatch.Elapsed.ToString(@"hh\:mm\:ss"));
         }
         
-        stopwatch.Stop();
         return chunks;
     }
 
     private Chunk CreateChunk(List<string> chunkLines, string chunksPath, int chunkNumber, IComparer<string> comparer)
     {
-        var stopwatch = new Stopwatch();
-        stopwatch.Start();
-        
         var sortedChunk = chunkLines
             .OrderBy(x => x, comparer)
             .ToList();
-        
-        stopwatch.Stop();
-        
-        Console.WriteLine($"Sorting chunk {chunkNumber} elapsed Time: " + stopwatch.Elapsed.ToString(@"hh\:mm\:ss"));
         
         var chunkFilePath = Path.Combine(chunksPath, $"chunk_{chunkNumber}.txt");
         File.WriteAllLines(chunkFilePath, sortedChunk);

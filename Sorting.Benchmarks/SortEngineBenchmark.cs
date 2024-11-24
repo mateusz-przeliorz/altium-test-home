@@ -9,8 +9,8 @@ public class SortEngineBenchmark
 { 
     private const string Input = "benchmark-10-mb.txt";
     private const string Output = "benchmark-sorted-10-mb.txt";
-    private const int DefaultBufferSize = 1024;
-    private const int DefaultBatchSize = 15;
+    private const int DefaultBufferSize = 2048;
+    private const int DefaultBatchSize = 10;
     
     private readonly SortEngine _sortEngine = new(new ChunksGenerator(), new ChunksMerger(), new LineComparer());
 
