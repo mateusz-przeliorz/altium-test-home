@@ -10,18 +10,18 @@ public class FileGeneratorBenchmark
     private readonly FileGenerator _fileGenerator = new(new RandomLineGenerator());
     
     [Benchmark]
-    public async Task Generate_100MB()
+    public void Generate_100MB()
     {
         const string filePath = "unsorted-100.txt";
         long fileSize = 100 * 1024 * 1024;
-        await _fileGenerator.GenerateAsync(new FileGeneratorInput(filePath, fileSize));
+        _fileGenerator.Generate(new FileGeneratorInput(filePath, fileSize));
     }
     
     [Benchmark]
-    public async Task Generate_10MB()
+    public void Generate_10MB()
     {
         const string filePath = "unsorted-10.txt";
         long fileSize = 10 * 1024 * 1024;
-        await _fileGenerator.GenerateAsync(new FileGeneratorInput(filePath, fileSize));
+        _fileGenerator.Generate(new FileGeneratorInput(filePath, fileSize));
     }
 }

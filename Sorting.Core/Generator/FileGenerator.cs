@@ -6,7 +6,7 @@ namespace Sorting.Core.Generator;
 
 public interface IFileGenerator
 {
-    Task GenerateAsync(FileGeneratorInput input);
+    void Generate(FileGeneratorInput input);
 }
 
 internal class FileGenerator : IFileGenerator
@@ -20,12 +20,12 @@ internal class FileGenerator : IFileGenerator
         _lineGenerator = lineGenerator;
     }
     
-    public async Task GenerateAsync(FileGeneratorInput input)
+    public void Generate(FileGeneratorInput input)
     {
         Console.WriteLine("Generating file...");
 
-        await using var fileStream = Writer.FileStream(input.OutputFilePath);
-        await using var writer = new StreamWriter(fileStream);
+        using var fileStream = Writer.FileStream(input.OutputFilePath);
+        using var writer = new StreamWriter(fileStream);
         
         long totalBytes = 0;
         var linesBuffer = new StringBuilder(LinesBufferSize);
@@ -39,14 +39,14 @@ internal class FileGenerator : IFileGenerator
                 
             if (linesBuffer.Length > LinesBufferSize)
             {
-                await writer.WriteAsync(linesBuffer.ToString());
+                writer.Write(linesBuffer.ToString());
                 linesBuffer.Clear();
             }
         }
 
         if (linesBuffer.Length > 0)
         {
-            await writer.WriteAsync(linesBuffer.ToString());
+            writer.Write(linesBuffer.ToString());
             linesBuffer.Clear();
         }
         
