@@ -5,11 +5,11 @@
 
 ### Generate file
 - To check options use: `dotnet run -- generate --help`
-- To generate file with random lines `dotnet run -- generate`
+- To generate file with random lines: `dotnet run -- generate`
 
 ### Sort file
 - To check options use: `dotnet run -- sort --help`
-- To generate file with random lines `dotnet run -- sort -i <your-file>`
+- To sort file: `dotnet run -- sort -i <your-file>`
 
 ##  Observations
 Due to huge amount of I/O operations async approach seems to be slower.
